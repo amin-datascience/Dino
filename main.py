@@ -6,7 +6,6 @@ from utils import DataAugmentation, MultiCropWrapper
 from torchvision import datasets, transforms  
 import matplotlib.pyplot as plt  
 from torch.utils import data
-! pip install git+https://github.com/ildoonet/pytorch-gradual-warmup-lr.git
 import warmup_scheduler
 
 
