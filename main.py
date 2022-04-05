@@ -6,6 +6,8 @@ from utils import DataAugmentation, MultiCropWrapper
 from torchvision import datasets, transforms  
 import matplotlib.pyplot as plt  
 from torch.utils import data
+! pip install git+https://github.com/ildoonet/pytorch-gradual-warmup-lr.git
+import warmup_scheduler
 
 
 
@@ -159,7 +161,7 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
 def main(parameters):
 
 		#=============================Preparing Data==================================
-		path = './' 
+		path = 'D:\ML\KNTU_Courses\datasets\Cifar 10\Cifar10 dino' 
 		device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 		plain_augmentation = transforms.Compose([
 			transforms.ToTensor(), 
@@ -172,8 +174,8 @@ def main(parameters):
 		dataset_validation, dataset_test = torch.utils.data.random_split(dataset_test, [8000, 2000])
 
 
-		train_loader = data.DataLoader(dataset_train, batch_size = parameters['batch_size'], drop_last = True, num_workers = 4)
-		val_loader = data.DataLoader(dataset_validation, batch_size = parameters['batch_size'], drop_last = True, num_workers = 4)
+		train_loader = data.DataLoader(dataset_train, batch_size = parameters['batch_size'], drop_last = True, num_workers = 2)
+		val_loader = data.DataLoader(dataset_validation, batch_size = parameters['batch_size'], drop_last = True, num_workers = 2)
 
 		#=============================Preparing The Model==================================
 		student = Dino(img_size = parameters['img_size'], patch_size = parameters['patch_size'], 
@@ -190,18 +192,21 @@ def main(parameters):
 
 		teacher.load_state_dict(student.state_dict()) #Making sure that the two networks' parameters are the same
 
-		for params in teacher.parameters: 
+		for params in teacher.parameters(): 
 			params.requires_grad = False
 
 		criterion = DinoLoss(parameters['out_dim'], teacher_temp = parameters['teacher_temp'], 
 			student_temp = parameters['student_temp'], center_momentum = parameters['center_momentum']).to(device)
 
-		optimzier = torch.optim.Adam(model.parameters(), lr = parameters['lr'], weight_decay = parameters['weight_decay'])
+		optimizer = torch.optim.Adam(student.parameters(), lr = parameters['lr'], weight_decay = parameters['weight_decay'])
+		base_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max = 100, eta_min = 1e-4)
+		scheduler = warmup_scheduler.GradualWarmupScheduler(optimizer, multiplier=1., total_epoch=5, after_scheduler = base_scheduler)
 
 		momentum_teacher = parameters['momentum_teacher']
-		history = train_func(train_loader, model, optimizer, loss_func = criterion, validation_loader = val_loader, 
-							device = device, scheduler = scheduler, batch_size = parameters['batch_size'], 
-							max_epochs = parameters['max_epochs'], momentum_teacher = momentum_teacher)
+		history = train_func(train_loader = train_loader, student = student, teacher = teacher,
+			optimizer = optimizer, loss_func = criterion, validation_loader = val_loader, 
+			device = device, scheduler = scheduler, batch_size = parameters['batch_size'], 
+			max_epochs = parameters['max_epochs'], momentum_teacher = momentum_teacher)
 
 
 if __name__ == '__main__':
