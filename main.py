@@ -216,7 +216,7 @@ if __name__ == '__main__':
 				 'embed_dim' : 768, 'out_dim': 0000, 'teacher_temp' : 0.04, 'student_temp' : 0.1, 
 				 'center_momentum' : 0.9, 'max_epochs' : 100, 'momentum_teacher': 0.9}
 
-	main(parameters)
+	student = main(parameters)
 
 	#=============================Validation & Visualizing Embeddings ==================================
  	
