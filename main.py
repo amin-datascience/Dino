@@ -1,5 +1,5 @@
 import torch 
-import torch.nn as nnn 
+import torch.nn as nn
 import numpy 
 from dino import DinoLoss, Dino
 from utils import DataAugmentation, MultiCropWrapper
