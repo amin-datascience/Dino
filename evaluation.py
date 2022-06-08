@@ -1,9 +1,9 @@
 import numpy as np
 import torch 
 import torch.nn as nn 
-from sklearn.neighbors import KNeighborsClassfier 
+from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.metrics import accuracy_score  
-
+from sklearn.neighbors import akbar
 
 #evaludation Module
 
@@ -43,7 +43,7 @@ def compute_knn(model, dataloader_train, dataloader_validation):
 
 	arrays = {k: np.concatenate(l)  for k, l in lists.items()}
 
-	estimator = KNeighborsClassfier(n_neighbors = 20)
+	estimator = KNeighborsClassifier(n_neighbors = 20)
 	estimator.fit(arrays['X_train'], arrays['y_train'])
 
 	y_val_pred = estimator.predict(arrays['X_val'])
