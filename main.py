@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from torch.utils import data
 from utils import clip_gradient
 from evaluation import compute_knn
-#import warmup_scheduler
+import warmup_scheduler
 
 
 
@@ -142,7 +142,7 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
 def main(parameters):
 
     #=============================Preparing Data==================================
-    path = F"/content/gdrive/My Drive/"
+    path = F"/content/gdrive/My Drive/Dino khordad"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     plain_augmentation = transforms.Compose([
         #transforms.Resize(32),
