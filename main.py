@@ -55,8 +55,8 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
 
     losses = []
     accuracy = []
-    validation_loss = []
-    validation_accuracy = []
+    validation_acc_knn = []
+    validation_accuracy_logistic = []
 
 
     for epoch in range(max_epochs):
@@ -103,14 +103,16 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
             student.eval()   
 
             acc_logistic, acc_val_logistic, acc_val_knn = evaluate(student.backbone, train_loader_plain, validation_loader)
-            validation_accuracy.append(acc_val_knn)
+            validation_acc_knn.append(acc_val_knn)
+            accuracy.append(acc_logistic)
+            validation_accuracy_logistic.append(acc_val_logistic)
 
             print('Training accuracy Logistic [{:.3f}], Validation accuracy Logistic [{:.3f}], Validation KNN [{:.3f}]'
                 .format(acc_logistic, acc_val_logistic, acc_val_knn))
         
         #====================== Saving the Model ============================  
         model_save_name = 'dino.pt'
-        path = F"/kaggle/working/{model_save_name}"
+        path = F"/content/gdrive/MyDrive/Dino_khordad/{model_save_name}"
         torch.save(student.state_dict(), path)
     
     #====================== Testing ============================      
@@ -134,8 +136,8 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
 
 
 
-    return {'loss': losses, 'accuracy': accuracy, 
-            'val_loss': validation_loss, 'val_accuracy': validation_accuracy}
+    return  {'loss': losses, 'accuracy': accuracy, 
+            'val_acc_logistic': validation_accuracy_logistic, 'val_accuracy_knn': validation_acc_knn}
 
 
 
