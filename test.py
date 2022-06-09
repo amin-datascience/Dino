@@ -1,3 +1,8 @@
-from main import hello 
+def hell():
+    print('man amade am')
 
-hello()
+
+
+
+
+
