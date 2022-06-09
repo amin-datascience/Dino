@@ -1,5 +1,5 @@
 def hell():
     print('man amade am')
 
-def hello():
-    print('hello')
+def m():
+    print('k')
