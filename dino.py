@@ -192,6 +192,9 @@ class Dino(nn.Module):
 		x = self.norm(x) 
 		cls_embed = x[:, 0]
 
+		x_cls = self.head(cls_embed)
+
+        return x_cls 
 
 
 
