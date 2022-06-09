@@ -201,6 +201,8 @@ def main(parameters):
 
     return student, history
 
+def hello():
+    print('Im here')
 
 
 if __name__ == '__main__':
