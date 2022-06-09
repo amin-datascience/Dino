@@ -11,6 +11,11 @@ from evaluation import evaluate
 #import warmup_scheduler
 
 
+def hello(x = 'amin'):
+    print('Im here')
+    return (x)
+
+
 
 def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_teacher, max_epochs = 100,  
                 validation_loader = None, batch_size = 128, scheduler = None, device = None, test_loader = None, 
@@ -202,9 +207,6 @@ def main(parameters):
     return student, history
 
 
-def hello(x = 'amin'):
-    print('Im here')
-    return (x)
 
 
 if __name__ == '__main__':
