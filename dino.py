@@ -194,7 +194,7 @@ class Dino(nn.Module):
 
 		x_cls = self.head(cls_embed)
 
-        return x_cls 
+		return x_cls 
 
 
 
