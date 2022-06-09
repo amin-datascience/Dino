@@ -182,7 +182,7 @@ class Dino(nn.Module):
 		cls_embed = x[:, 0]
 
 
-	def _init_weight(self, m):
+	def _init_weights(self, m):
 		if isinstance(m, nn.Linear):
 			nn.init.trunc_normal_(m.weights, std = 0.02)
 
@@ -318,7 +318,7 @@ class DinoLoss(nn.Module):
 		student_output, teache_output: tuple
 			Tuple of tensors of shape '(n_samples, out_dim)' representing
 			logits. The length is equal to the number of crops.
-			Note that student processed all crops and that the first two crops are 
+			Note that student processes all crops and that the first two crops are 
 			the global crops.
 		"""
 
