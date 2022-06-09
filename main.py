@@ -144,7 +144,7 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
 def main(parameters):
 
     #=============================Preparing Data==================================
-    path = F"/content/gdrive/My Drive/Dino khordad"
+    path = F"/content/gdrive/MyDrive/Dino_khordad"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print('hellooooo')
     print(device)
