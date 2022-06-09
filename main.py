@@ -201,7 +201,8 @@ def main(parameters):
 
     return student, history
 
-def hello():
+
+def hello(x = 'amin'):
     print('Im here')
 
 
