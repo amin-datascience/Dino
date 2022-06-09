@@ -7,7 +7,7 @@ from torchvision import datasets, transforms
 import matplotlib.pyplot as plt  
 from torch.utils import data
 from utils import clip_gradient
-from evaluation import compute_knn
+from evaluation import evaluate
 import warmup_scheduler
 
 
@@ -102,7 +102,7 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
         if validation_loader:
             student.eval()   
 
-            acc_logistic, acc_val_logistic, acc_val_knn = compute_knn(student.backbone, train_loader_plain, validation_loader)
+            acc_logistic, acc_val_logistic, acc_val_knn = evaluate(student.backbone, train_loader_plain, validation_loader)
             validation_accuracy.append(acc_val_knn)
 
             print('Training accuracy Logistic [{:.3f}], Validation accuracy Logistic [{:.3f}], Validation KNN [{:.3f}]'
