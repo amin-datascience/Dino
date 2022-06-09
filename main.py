@@ -204,6 +204,7 @@ def main(parameters):
 
 def hello(x = 'amin'):
     print('Im here')
+    return (x)
 
 
 if __name__ == '__main__':
