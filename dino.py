@@ -199,7 +199,6 @@ class Dino(nn.Module):
 
 
 
-
 class DinoHead(nn.Module):
 	"""
 	The projection head used in DINO.
@@ -366,6 +365,9 @@ class DinoLoss(nn.Module):
 		"""
 		batch_center = torch.cat(teacher_output).mean(dim = 0, keepdim = True) #(1, out_dim)
 		self.center = self.center * self.center_momentum + batch_center * (1-self.center_momentum)
+
+
+
 
 
 

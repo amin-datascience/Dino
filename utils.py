@@ -9,24 +9,24 @@ from torch.utils import data
 
 
 def clip_gradient(model, clip = 2.0):
-	"""Rescales norm of computed gradients.
+    """Rescales norm of computed gradients.
 
-	Parameters
-	----------
-	model: nn.Module 
-		Module.
+    Parameters
+    ----------
+    model: nn.Module 
+        Module.
 
-	clip: float
-		Maximum norm.
+    clip: float
+        Maximum norm.
 
-	"""
+    """
 
-	for p in model.parameters():
-		if p.grad is not None:
-			param_norm = p.grad.data.norm()
-			clip_coef = clip / (param_norm + 1e-6)
-			if clip_coef < 1:
-				p.grad.data.mul_(clip_coef)
+    for p in model.parameters():
+        if p.grad is not None:
+            param_norm = p.grad.data.norm()
+            clip_coef = clip / (param_norm + 1e-6)
+            if clip_coef < 1:
+                p.grad.data.mul_(clip_coef)
 
 
 
@@ -59,7 +59,7 @@ class MultiCropWrapper(nn.Module):
         Parameters:
         -----------
         x: list 
-           list of 'torch.Tensor' each of shape (n_samples, 3, size, size).
+        list of 'torch.Tensor' each of shape (n_samples, 3, size, size).
 
         Returns
         -------
@@ -126,7 +126,7 @@ class DataAugmentation(object):
             flip_and_jitter, 
             RandomGaussianBlur(0.1),
             normalize
-            ])	
+            ])
 
 
 
@@ -152,3 +152,10 @@ class DataAugmentation(object):
 
         return all_crops
 
+
+
+
+if __name__ == '__main__':
+    from main import hello 
+
+    hello()

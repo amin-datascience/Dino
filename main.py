@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from torch.utils import data
 from utils import clip_gradient
 from evaluation import evaluate
-import warmup_scheduler
+#import warmup_scheduler
 
 
 
@@ -82,7 +82,7 @@ def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_te
             clip_gradient(student, clip_grad)
             optimizer.step()
 
-            		
+                    
             #================== Updating the teacher's parameters ========================
             with torch.no_grad():
                 for student_params, teacher_params in zip(student.parameters(), teacher.parameters()):
@@ -191,7 +191,7 @@ def main(parameters):
     optimizer = torch.optim.AdamW(student.parameters(), lr = parameters['lr'], weight_decay = parameters['weight_decay'])
     base_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max = 100, eta_min = 1e-6)
     scheduler = warmup_scheduler.GradualWarmupScheduler(optimizer, multiplier=1., total_epoch=5, after_scheduler = base_scheduler)
-     
+    
     momentum_teacher = parameters['momentum_teacher']
     history, modell = train_func(train_loader = train_loader, student = student, teacher = teacher, 
         optimizer = optimizer, loss_func = criterion, validation_loader = val_loader, 
@@ -210,16 +210,16 @@ def hello(x = 'amin'):
 if __name__ == '__main__':
 
     parameters = {'batch_size': 512, 'lr': 7.5e-6, 'weight_decay': 0.05, 'img_size': 32, 'n_crops': 4, 
-                 'layers' : 6, 'n_heads' : 6, 'patch_size' : 8,  'early_cnn' : True, 'n_classes' : 384, 
-                 'embed_dim' : 384, 'out_dim': 1024, 'teacher_temp' : 0.04, 'student_temp' : 0.1, 
-                 'center_momentum' : 0.996, 'max_epochs' : 100, 'momentum_teacher': 0.9, 'clip_grad': 2.0}
+                'layers' : 6, 'n_heads' : 6, 'patch_size' : 8,  'early_cnn' : True, 'n_classes' : 384, 
+                'embed_dim' : 384, 'out_dim': 1024, 'teacher_temp' : 0.04, 'student_temp' : 0.1, 
+                'center_momentum' : 0.996, 'max_epochs' : 100, 'momentum_teacher': 0.9, 'clip_grad': 2.0}
 
     model, history = main(parameters)
     
     
     
-	#=============================Validation & Visualizing Embeddings ==================================
- 	
+    #=============================Validation & Visualizing Embeddings ==================================
+    
 
 
 
