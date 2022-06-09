@@ -146,6 +146,7 @@ def main(parameters):
     #=============================Preparing Data==================================
     path = F"/content/gdrive/My Drive/Dino khordad"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print('hellooooo')
     print(device)
     plain_augmentation = transforms.Compose([
         #transforms.Resize(32),
