@@ -11,11 +11,6 @@ from evaluation import evaluate
 import warmup_scheduler
 
 
-def hello(x = 'amin'):
-    print('Im here')
-    return (x)
-
-
 
 def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_teacher, max_epochs = 100,  
                 validation_loader = None, batch_size = 128, scheduler = None, device = None, test_loader = None, 
@@ -151,7 +146,7 @@ def main(parameters):
     #=============================Preparing Data==================================
     path = F"/content/gdrive/MyDrive/Dino_khordad"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print('hellooooo')
+    print('Starting Dino ....')
     print(device)
     plain_augmentation = transforms.Compose([
         #transforms.Resize(32),
