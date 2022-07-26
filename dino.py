@@ -5,7 +5,7 @@ from torch.nn import functional as F
 
 
 
-#Dino Module
+#Dino Module 1
 
 class PatchEmbedding(nn.Module):
 
