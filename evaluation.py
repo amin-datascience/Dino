@@ -3,7 +3,6 @@ import torch.nn as nn
 from sklearn.neighbors import KNeighborsClassfier 
 from sklearn.metrics import accuracy_score  
 
-
 #evaludation Module
 
 def compute_knn(model, dataloader_train, dataloader_validation):
