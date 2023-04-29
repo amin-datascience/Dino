@@ -9,7 +9,6 @@ from torch.utils import data
 from utils import clip_gradient
 
 
-
 def train_func(train_loader, student, teacher, optimizer, loss_func, momentum_teacher, max_epochs = 100,  
                 validation_loader = None, batch_size = 128, scheduler = None, device = None, test_loader = None, 
                 train_loader_plain = None, clip_grad = None):
