@@ -9,7 +9,6 @@ from torch.utils import data
 
 
 
-
 def clip_gradient(model, norm = 2.0):
 	"""Rescales norm of computed gradients.
 
